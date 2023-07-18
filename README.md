@@ -1,6 +1,8 @@
 # npEventsAPI
 API and data for nepali holidays and calendar events
 
+**A live API for the project is available for free of charge at: https://npclapi.casualsnek.eu.org**
+
 Currently, it can
 - Build 'kholidays' holiday definition file allowing you to get event information natively in KDE plasma desktop
 - Create an HTTP API with python flask, allowing filtering, searching and a few other complex queries
