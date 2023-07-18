@@ -1,7 +1,25 @@
+<style>
+  body {
+    padding-left: 15%;
+    padding-right: 15%;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  tr, td, table {
+    border: 2px solid black;
+  }
+  td {
+    padding: 8px;
+  }
+  
+</style>
+
 # npEventsAPI
 API and data for nepali holidays and calendar events
 
-**A live API for the project is available for free of charge at: https://npclapi.casualsnek.eu.org**
+**A live API for the project is available for free of charge at: [https://npclapi.casualsnek.eu.org](https://npclapi.casualsnek.eu.org)**
 
 Currently, it can
 - Build 'kholidays' holiday definition file allowing you to get event information natively in KDE plasma desktop
@@ -39,6 +57,7 @@ The definition will contain Nepali Public holidays and Nepali Dates in BS as hol
 Selecting Nepali dates to be visible as holiday will allow you to check today's date in BS.
 Directly in your calendar.
 
+
 | Argument | Description                                                                                                                                                                                                |
 |----------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | -k       | Switch to kholiday generation mode                                                                                                                                                                         |
@@ -46,8 +65,8 @@ Directly in your calendar.
 | -hod     | Path to directory where the generated file will be placed                                                                                                                                                  |
 | -se      | Selected events. Events that will show up as holiday in the calendar. Available options: ```holidays, nepali_date, panchangam, tithi, non_holiday_events```. Separated by comma without space between them |
 | -fh      | Flatten holiday. Squash all holidays for a day into single string so that they all appear as one single event in calendar                                                                                  |
-| -ah      | Append ```सार्बजनिक बिदा:``` in front of names of events in public holidays                                                                                                                                |
-| -ap      | Append ```पञ्चाङ्ग:``` in front of names of Panchangam events in if the event is selected                                                                                                                  |
+| -ah      | Append ```सार्बजनिक बिदा:``` in front of names of events in public holidays                                                                                                                                    |
+| -ap      | Append ```पञ्चाङ्ग:``` in front of names of Panchangam events in if the event is selected                                                                                                                     |
 
 
 ### 3. Serve HTTP API
@@ -57,13 +76,17 @@ Place the generated artifacts in the same directory as ```flask_api.py``` and ru
 python __main__.py
 ```
 The available environment variables while starting API are :
-| ENV Var  | Value | Default value | Description   |
-|---|---|---|---|
-| DEBUG | 1/0 | 0 | Enables or Disables flask debugging mode |
-| HOST | IP Address | 0.0.0.0 | Host on which to listen for connections |
-| PORT | IP Address | 8080 | Port on which to listen for connections |
-| PORT | Integer | 8080 | Port on which to listen for connections |
-| SKIP_DB_CREATE | 1/0 | 0 | If set to 1 skips the process that puts artifacts in the database.
+
+
+| ENV Var         | Value       | Default value | Description                                                         |
+|-----------------|-------------|---------------|---------------------------------------------------------------------|
+| DEBUG           | 1/0         | 0             | Enables or Disables flask debugging mode                            |
+| HOST            | IP Address  | 0.0.0.0       | Host on which to listen for connections                             |
+| PORT            | IP Address  | 8080          | Port on which to listen for connections                             |
+| PORT            | Integer     | 8080          | Port on which to listen for connections                             |
+| SKIP_DB_CREATE  | 1/0         | 0             | If set to 1 skips the process that puts artifacts in the database.  |
+
+
 Set this to 1 if you have already run the application at least once.
 
 ### 4 HTTP API Documentation
@@ -80,7 +103,7 @@ It can be used to get information about months, day of months, years and so on.
 -  ```<caltype>```: Type of calendar system being used for the date in API call
 - ```<date>```: Date to query for in the format ```yyyy-m-d```
 
-**Sample response**: Call to ```http://127.0.0.1:8080/v2/date/ad/2023-5-15```
+**Sample response**: Call to : [/v2/date/ad/2023-5-15](/v2/date/ad/2023-5-15)
 
 ```json
 {
@@ -148,7 +171,7 @@ This API is useful to get, for example, event of the next 15 days to calculate t
 
 **Notes:** 'from' date should always be older than 'to' date
 
-**Sample response**: Call to ```http://127.0.0.1:8080/v2/range/ad/2023-5-15/2023-5-17```
+**Sample response**: Call to : [/v2/range/ad/2023-5-15/2023-5-17](/v2/range/ad/2023-5-15/2023-5-17)
 ```json
 {
   "2023": {
@@ -232,24 +255,15 @@ This API is useful to get, for example, event of the next 15 days to calculate t
 #### 4.3 Filters/searching and structures
 For all endpoints, the returned data can be further filtered or organized by using available URL parameters.
 The available parameters are as follows:
-| Parameter | Description | Query URL example
-|---|---|---|
-| only_holidays | If set to ```1```, the data to be returned by API will only keep the days marked as public holidays, all other days will be removed from the result | ```http://127.0.0.1:8080/v2/date/bs/2080?only_holidays=1``` <br> This will return all days in year 2080 BS.
-which are marked as public holiday.|
-| except_holidays |  If set to ```1```, the data to be returned by API will only keep the days not marked as public holidays, all other days which are marked public holiday will be removed from the result | ```http://127.0.0.1:8080/v2/date/bs/2080?only_holidays=1``` <br> This will return all days in year 2080 BS.
-Which is not marked as a public holiday.
-|
-| filter_tithis | Tithis seperated by ```;```,
-This will filter out all the days from a result that are not on the given list of tithis.
-| ```http://127.0.0.1:8080/v2/date/bs/2080?filter_tithis=त्रयोदशी;द्वादशी``` <Br> This will return all days in year 2080 BS.
-Which are tithi is either 'त्रयोदशी' or 'द्वादशी' |
-| search | A search term, this will search the result for search term and only return the days,
-which has any event that matches search term.
-|  ```http://127.0.0.1:8080/v2/date/bs/2080?search=अन्तर्राष्ट्रिय परिवार दिवस``` <Br> This will return all days in year 2080 BS.
-Whose one of the events is 'अन्तर्राष्ट्रिय परिवार दिवस'?
-|
-| Bs_as_key | If this parameter is set to ```1```.
-The keys in returned JSON will be in BS instead of AD | ```http://127.0.0.1:8080/v2/date/bs/2080-1-1?bs_as_key=1``` <br> <br> will return ```{"2080":{"1":{"1":{"date":{"ad":{"day":14,"month":4,"year":2023},"bs":{"day":1,"month":1,"year":2080}},"event":["नयाँ वर्ष","मेष संक्रान्ति","बिस्का: जात्रा"],"panchangam":["वैशाख कृष्ण नवमी","सिद्ध तैतल उत्तरषाढा"],"public_holiday":true,"tithi":"नवमी"}}}} ``` <br> <br>instead of ```{"2023":{"4":{"14":{"date":{"ad":{"day":14,"month":4,"year":2023},"bs":{"day":1,"month":1,"year":2080}},"event":["नयाँ वर्ष","मेष संक्रान्ति","बिस्का: जात्रा"],"panchangam":["वैशाख कृष्ण नवमी","सिद्ध तैतल उत्तरषाढा"],"public_holiday":true,"tithi":"नवमी"}}}}```|
+
+
+| Parameter       | Description                                                                                                                                                                               | Query URL example
+|-----------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---|
+| only_holidays   | If set to ```1```, the data to be returned by API will only keep the days marked as public holidays, all other days will be removed from the result                                       | [/v2/date/bs/2080?only_holidays=1](/v2/date/bs/2080?only_holidays=1) <br> This will return all days in year 2080 BS. which are marked as public holiday. |
+| except_holidays |  If set to ```1```, the data to be returned by API will only keep the days not marked as public holidays, all other days which are marked public holiday will be removed from the result  | [/v2/date/bs/2080?except_holidays=1](/v2/date/bs/2080?except_holidays=1) <br> This will return all days in year 2080 BS. Which is not marked as a public holiday. |
+| filter_tithis   | Tithis seperated by ```;```,This will filter out all the days from a result that are not on the given list of tithis.                                                                     | [/v2/date/bs/2080?filter_tithis=त्रयोदशी;द्वादशी](/v2/date/bs/2080?filter_tithis=त्रयोदशी;द्वादशी) <Br> This will return all days in year 2080 BS. Which are tithi is either 'त्रयोदशी' or 'द्वादशी' |
+| search          | A search term, this will search the result for search term and only return the days, which has any event that matches search term.                                                        | [/v2/date/bs/2080?search=अन्तर्राष्ट्रिय परिवार दिवस](/v2/date/bs/2080?search=अन्तर्राष्ट्रिय परिवार दिवस) <Br> This will return all days in year 2080 BS. Whose one of the events is 'अन्तर्राष्ट्रिय परिवार दिवस'? |
+| Bs_as_key       | If this parameter is set to ```1```. The keys in returned JSON will be in BS instead of AD                                                                                                | [/v2/date/bs/2080-1-1?bs_as_key=1](/v2/date/bs/2080-1-1?bs_as_key=1) <br> <br> will return ```{"2080":{"1":{"1":{"date":{"ad":{"day":14,"month":4,"year":2023},"bs":{"day":1,"month":1,"year":2080}},"event":["नयाँ वर्ष","मेष संक्रान्ति","बिस्का: जात्रा"],"panchangam":["वैशाख कृष्ण नवमी","सिद्ध तैतल उत्तरषाढा"],"public_holiday":true,"tithi":"नवमी"}}}} ``` <br> <br>instead of ```{"2023":{"4":{"14":{"date":{"ad":{"day":14,"month":4,"year":2023},"bs":{"day":1,"month":1,"year":2080}},"event":["नयाँ वर्ष","मेष संक्रान्ति","बिस्का: जात्रा"],"panchangam":["वैशाख कृष्ण नवमी","सिद्ध तैतल उत्तरषाढा"],"public_holiday":true,"tithi":"नवमी"}}}}``` |
 
 **Note:** Any of the parameter combinations can be mixed and used in any API to get the result you need
 

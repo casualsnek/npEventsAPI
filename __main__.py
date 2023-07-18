@@ -258,7 +258,7 @@ def docs():
     if os.path.exists(os.path.join(cur_dir, 'README.md')):
         with open(os.path.join(cur_dir, 'README.md'), 'r') as f:
             text = f.read()
-            return markdown.markdown(text)
+            return markdown.markdown(text, extensions=['tables', 'markdown.extensions.fenced_code'])
     else:
         return 'MISSING DOCUMENTATION', 404
 
