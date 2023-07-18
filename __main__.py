@@ -133,11 +133,11 @@ def calender_query_builder(caltype: str, start: tuple[int, int, int],
         start_d_data = get_days_on(caltype, start_y, start_m)
         end_d_data = get_days_on(caltype, end_y, end_m)
         # Validate day
-        if (start_d >= 0 and start_d <= start_d_data) \
-                or (end_d >= 0 and end_d <= end_d_data):
+        if (0 <= start_d <= start_d_data) \
+                or (0 <= end_d <= end_d_data):
             # The days are in proper range
             start_d = start_d if start_d != 0 else 1
-            # Select last day of month for end day if it's not set
+            # Selected last day of month for end day if it's not set
             end_d = end_d if end_d != 0 else end_d_data
         else:
             raise CalendarQueryException(

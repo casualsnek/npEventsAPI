@@ -37,20 +37,16 @@ The definition will contain Nepali Public holidays and Nepali Dates in BS as hol
 Selecting Nepali dates to be visible as holiday will allow you to check today's date in BS.
 Directly in your calendar.
 
-| Argument  | Description   |
-|---|---|---|
-| -k | Switch to kholiday generation mode |
-| -ia | Input artifact, the ones generated in **1.1**.
-You can pass it multiple times to add events for multiple years |
-| -hod | Path to directory where the generated file will be placed |
-| -se | Selected events.
-Events that will show up as holiday in the calendar.
-Available options: ```holidays, nepali_date, panchangam, tithi, non_holiday_events```.
-Separated by comma without space between them
-| -fh | Flatten holiday.
-Squash all holidays for a day into single string so that they all appear as one single event in calendar |
-| -ah | Append ```सार्बजनिक बिदा:``` in front of names of events in public holidays |
-| -ap | Append ```पञ्चाङ्ग:``` in front of names of Panchangam events in if the event is selected |
+| Argument | Description                                                                                                                                                                                                |
+|----------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| -k       | Switch to kholiday generation mode                                                                                                                                                                         |
+| -ia      | Input artifact, the ones generated in **1.1**. You can pass it multiple times to add events for multiple years                                                                                             |
+| -hod     | Path to directory where the generated file will be placed                                                                                                                                                  |
+| -se      | Selected events. Events that will show up as holiday in the calendar. Available options: ```holidays, nepali_date, panchangam, tithi, non_holiday_events```. Separated by comma without space between them |
+| -fh      | Flatten holiday. Squash all holidays for a day into single string so that they all appear as one single event in calendar                                                                                  |
+| -ah      | Append ```सार्बजनिक बिदा:``` in front of names of events in public holidays                                                                                                                                |
+| -ap      | Append ```पञ्चाङ्ग:``` in front of names of Panchangam events in if the event is selected                                                                                                                  |
+
 
 ### 3. Serve HTTP API
 Serving the data as HTTP API requires you to generate artifacts first as shown in **1.1** .
