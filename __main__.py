@@ -424,7 +424,8 @@ def old_date_view(opmode: str):
 
 
 if __name__ == '__main__':
-    artifacts_dir = os.listdir(os.path.join(os.path.dirname(__name__), 'artifacts'))
+    artifacts_dir_path: str = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'artifacts')
+    artifacts_dir: list[str] = os.listdir(artifacts_dir_path)
     with app.app_context():
         db.create_all()
         available_years = sorted([
@@ -433,11 +434,11 @@ if __name__ == '__main__':
             if
             file.startswith('artifact-') and file.endswith('.json')
             ])
-        print(f'[I] Artifacts found for years:  {", ".join(year for year in available_years)} ')
+        print(f'[I] Artifacts found for years:  {", ".join(str(year) for year in available_years)} ')
         for year in available_years:
             if int(os.environ.get('SKIP_DB_CREATE', 0)):
                 break
-            with open(f'artifact-{year}.json', 'r') as cf:
+            with open(os.path.join(artifacts_dir_path, f'artifact-{year}.json'), 'r') as cf:
                 cal = json.load(cf)
             for eng_date in cal:
                 ENG_YEAR: int = int(
