@@ -146,9 +146,9 @@ It can be used to get information about months, day of months, years and so on.
 - Call to API with date as ```2022-11-12``` with give you the information about 12th of November 2022.
 - Call to API with date as ```2022-11-0``` with give you the information about 12th of every month and every day of 2022, the date can also be simply written as ```2022-11```.
 - Call to API with date as ```2022-0-0``` with give you the information about every day of every month in 2022, the date can also be simply written as ```2022```.
--  Call to API with date as ```0-11-12``` with give you the information about 12th of November from every year that exists in the database
+- Call to API with date as ```0-11-12``` with give you the information about 12th of November from every year that exists in the database
 - Call to API with date as ```0-0-12``` with give you the information about 12th of every month of every year that exists in the database.
--  Call to API with date as ```2022-0-12``` with give you the information about 12th of every month of year 2022.
+- Call to API with date as ```2022-0-12``` with give you the information about 12th of every month of year 2022.
 
 #### 4.2  Range Endpoint: ```/v2/range/<caltype>/from/<date>/to/<date>```
 **Description**: This endpoint is almost same as the ```date``` endpoint except that you can select particular date range to pick event from rather than getting information about whole year, month, or day. The date after ```/from``` is the start of range and the date after ```/to``` is the end date. Unlike ```date``` endpoint all the parts of date format ```yyyy-m-d``` must be filled for both from and to date.
@@ -171,7 +171,7 @@ This API is useful to get, for example, event of the next 15 days to calculate t
 
 **Notes:** 'from' date should always be older than 'to' date
 
-**Sample response**: Call to : [/v2/range/ad/2023-5-15/2023-5-17](/v2/range/ad/2023-5-15/2023-5-17)
+**Sample response**: Call to : [/v2/range/ad/from/2023-5-15/to/2023-5-17](/v2/range/ad/from/2023-5-15/to/2023-5-17)
 ```json
 {
   "2023": {
@@ -279,7 +279,7 @@ The examples below consider today's date to be ```2023-5-16```
 - **```@cur_day```** : This variable will be automatically interpreted as the current day. In a date string ```2022-5-@cur_day``` is same as ```2023-5-16```
 
 ## And this is it!
-Help improve this repository by **reporting bugs**,
+Help improve this [repository](https://github.com/casualsnek/npEventsAPI) by **reporting bugs**,
 **improving code/documentation**, **sharing the words** and **using it**.
 If you have any queries, feel free to open a new issue!
 
